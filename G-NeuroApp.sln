@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G-NeuroApp", "G-NeuroApp\G-NeuroApp.csproj", "{E9CE8252-6042-4717-ACE8-266D189D528B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Release|Any CPU.ActiveCfg = Release|x64
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Release|Any CPU.Build.0 = Release|x64
+		{E9CE8252-6042-4717-ACE8-266D189D528B}.Release|Any CPU.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC7706F9-FE42-4DE5-A090-8DCE82F61779}
+	EndGlobalSection
+EndGlobal
