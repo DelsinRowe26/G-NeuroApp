@@ -27,6 +27,14 @@
         android:text="@string/btn_Start"
         
         />
+
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStop"
+        android:layout_height="54dp"
+        android:layout_width="147dp"
+        android:text="@string/btn_Stop"
+        
+        />
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
