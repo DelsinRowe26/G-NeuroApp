@@ -77,18 +77,18 @@ namespace G_NeuroApp
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        private void btn_Start_Click(object sender, EventArgs eventArgs)
+        private async void btn_Start_Click(object sender, EventArgs eventArgs)
         {
             clickStop = true;
-            RecordAudio();
+            await Task.Run (() => RecordAudio());
 
         }
 
         /*private void btn_Stop_Click(object sender, EventArgs eventArgs)
         {
             clickStop = false;
-            audRecorder.Stop();
-            audioTrack.Stop();
+            //audRecorder.Stop();
+            //audioTrack.Stop();
             //Timer(audRecorder, audioBuffer, audioBuffer1);
         }*/
 
@@ -98,29 +98,29 @@ namespace G_NeuroApp
 			  // Stream type
 			  Android.Media.Stream.Music,
 			  // Frequency
-			  11025,
+			  8000,
 			  // Mono or stereo
-			  ChannelOut.Stereo,
+			  ChannelOut.Mono,
 			  // Audio encoding
 			  Android.Media.Encoding.Pcm16bit,
 			  // Length of the audio clip.
-			  2048,
+			  audioBuffer.Length,
 			  // Mode. Stream or static.
 			  AudioTrackMode.Stream);
 			audioTrack.Play();
 			audioTrack.Write(audioBuffer, 0, audioBuffer.Length);
 		}
 
-        void Timer(AudioRecord audio, byte[] buffer, byte[] buffer1)
+        async void Timer(AudioRecord audio, byte[] buffer, byte[] buffer1)
         {
             while (clickStop)
             {
                 try
                 {
                     // Keep reading the buffer while there is audio input.
-
-                        audio.Read(buffer, 0, buffer.Length);
-                        PlayAudioTrack(buffer);
+                    
+                    audio.Read(buffer, 0, buffer.Length);
+                    await Task.Run(() => PlayAudioTrack(buffer));
 
                 }
                 catch (System.Exception ex)
@@ -133,14 +133,14 @@ namespace G_NeuroApp
 		
         async void RecordAudio()
 		{
-			byte[] audioBuffer = new byte[2048];
+			byte[] audioBuffer = new byte[6000];
 			AudioRecord audRecorder = new AudioRecord(
 		      // Hardware source of recording.
 		      AudioSource.Mic,
 		      // Frequency
-		      11025,
+		      8000,
 		      // Mono or stereo
-		      ChannelIn.Stereo,
+		      ChannelIn.Mono,
 		      // Audio encoding
 		      Android.Media.Encoding.Pcm16bit,
 		      // Length of the audio clip.
