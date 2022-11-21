@@ -23,9 +23,10 @@ namespace G_NeuroApp
         MediaRecorder recorder;
         bool clickStop;
 		
-		byte[] audioBuffer1 = new byte[2048];
-		
-		
+		byte[] audioBuffer1 = new byte[6000];
+		byte[] audioBuffer = new byte[6000];
+
+
 
 		protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -92,13 +93,13 @@ namespace G_NeuroApp
             //Timer(audRecorder, audioBuffer, audioBuffer1);
         }*/
 
-		void PlayAudioTrack(byte[] audioBuffer)
+		async void PlayAudioTrack(byte[] audioBuffer)
 		{
 			AudioTrack audioTrack = new AudioTrack(
 			  // Stream type
 			  Android.Media.Stream.Music,
 			  // Frequency
-			  8000,
+			  44100,
 			  // Mono or stereo
 			  ChannelOut.Mono,
 			  // Audio encoding
@@ -107,21 +108,20 @@ namespace G_NeuroApp
 			  audioBuffer.Length,
 			  // Mode. Stream or static.
 			  AudioTrackMode.Stream);
-			audioTrack.Play();
-			audioTrack.Write(audioBuffer, 0, audioBuffer.Length);
+			await Task.Run(() => audioTrack.Play());
+			await Task.Run(() => audioTrack.Write(audioBuffer, 0, audioBuffer.Length));
 		}
 
         async void Timer(AudioRecord audio, byte[] buffer, byte[] buffer1)
         {
+            int i = 0, count = 0;
             while (clickStop)
             {
                 try
                 {
                     // Keep reading the buffer while there is audio input.
-                    
-                    audio.Read(buffer, 0, buffer.Length);
+                    await Task.Run(() => audio.Read(buffer, 0, buffer.Length));
                     await Task.Run(() => PlayAudioTrack(buffer));
-
                 }
                 catch (System.Exception ex)
                 {
@@ -133,12 +133,12 @@ namespace G_NeuroApp
 		
         async void RecordAudio()
 		{
-			byte[] audioBuffer = new byte[6000];
+			
 			AudioRecord audRecorder = new AudioRecord(
 		      // Hardware source of recording.
 		      AudioSource.Mic,
 		      // Frequency
-		      8000,
+		      44100,
 		      // Mono or stereo
 		      ChannelIn.Mono,
 		      // Audio encoding
@@ -146,7 +146,7 @@ namespace G_NeuroApp
 		      // Length of the audio clip.
 		      audioBuffer.Length
 		    );
-			audRecorder.StartRecording();
+			await Task.Run(() => audRecorder.StartRecording());
 
             await Task.Run(() => Timer(audRecorder, audioBuffer, audioBuffer1));
 
