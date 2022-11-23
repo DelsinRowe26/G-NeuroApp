@@ -24,7 +24,7 @@ namespace G_NeuroApp
         bool clickStop;
 		
 		byte[] audioBuffer1 = new byte[6000];
-		byte[] audioBuffer = new byte[6000];
+		byte[] audioBuffer = new byte[8192];
 
 
 
