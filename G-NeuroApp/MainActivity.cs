@@ -24,7 +24,7 @@ namespace G_NeuroApp
         bool clickStop;
 		
 		byte[] audioBuffer1 = new byte[6000];
-		byte[] audioBuffer = new byte[8192];
+		byte[] audioBuffer = new byte[6000];
 
 
 
@@ -108,21 +108,26 @@ namespace G_NeuroApp
 			  audioBuffer.Length,
 			  // Mode. Stream or static.
 			  AudioTrackMode.Stream);
-			await Task.Run(() => audioTrack.Play());
-			await Task.Run(() => audioTrack.Write(audioBuffer, 0, audioBuffer.Length));
+            //audioTrack.Release();
+			audioTrack.Play();
+            //await Task.Delay(50);
+			audioTrack.Write(audioBuffer, 0, audioBuffer.Length);
 		}
 
         async void Timer(AudioRecord audio, byte[] buffer, byte[] buffer1)
         {
-            int i = 0, count = 0;
+            //int i = 0, count = 0;
             while (clickStop)
             {
                 try
                 {
                     // Keep reading the buffer while there is audio input.
-                    await Task.Run(() => audio.Read(buffer, 0, buffer.Length));
-                    await Task.Run(() => PlayAudioTrack(buffer));
-                }
+                    audio.Read(buffer, 0, buffer.Length);
+					//await Task.Delay(50);
+					PlayAudioTrack(buffer);
+					
+
+				}
                 catch (System.Exception ex)
                 {
                     Console.Out.WriteLine(ex.Message);
@@ -146,8 +151,10 @@ namespace G_NeuroApp
 		      // Length of the audio clip.
 		      audioBuffer.Length
 		    );
-			await Task.Run(() => audRecorder.StartRecording());
-
+            //audRecorder.Release();
+            
+			audRecorder.StartRecording();
+            
             await Task.Run(() => Timer(audRecorder, audioBuffer, audioBuffer1));
 
 		}
